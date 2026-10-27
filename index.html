@@ -52,6 +52,14 @@
     </header>
 
     <main id="content" class="main">
+      <figure class="hero-net">
+        <canvas data-network data-agents="52" aria-label="Animation of a network of AI agents reaching agreement as a few verifier agents pull them toward the verified answer" role="img"></canvas>
+        <figcaption>
+          <span><i class="dot dot-agent"></i>agent</span>
+          <span><i class="dot dot-verifier"></i>verifier</span>
+          <span class="cap-text">Agents exchange messages and drift toward agreement; a few well-placed verifiers pull the whole network to the verified answer.</span>
+        </figcaption>
+      </figure>
       <section id="about" class="section" aria-label="About">
         <h3 class="sticky-title">About</h3>
         <p>
@@ -75,10 +83,10 @@
         <h3 class="sticky-title">Research</h3>
         <ol class="list">
           <li class="item item-img">
-            <a class="cover" href="https://github.com/soleimanarebi/llm-agent-controllability" target="_blank" rel="noopener" aria-label="Controllability of LLM agent networks"></a>
-            <img src="img/fig-llm.png" alt="Error decay over rounds for verifiers placed by betweenness, eigenvector centrality or at random" loading="lazy" />
+            <a class="cover" href="research/controllability.html" aria-label="Controllability of LLM agent networks"></a>
+            <img src="research/img/fig-llm.png" alt="Error decay over rounds for verifiers placed by betweenness, eigenvector centrality or at random" loading="lazy" />
             <div>
-              <h4>Controllability of LLM Agent Networks <span class="arrow">↗</span></h4>
+              <h4>Controllability of LLM Agent Networks <span class="arrow">→</span></h4>
               <p>
                 Which agents to verify, and how many. In a pilot with 30 Claude agents and 50,400 model calls,
                 placing verifiers by betweenness centrality cut final error by 13 to 17 points over random placement
@@ -88,9 +96,10 @@
             </div>
           </li>
           <li class="item item-img">
-            <img src="img/fig-mda.png" alt="Minimum number of driver agents by centrality ranking, network size and density" loading="lazy" />
+            <a class="cover" href="research/collectives.html" aria-label="Controlling LLM agent collectives"></a>
+            <canvas class="thumb-net" data-network data-agents="16" aria-hidden="true"></canvas>
             <div>
-              <h4>Controlling LLM Agent Collectives</h4>
+              <h4>Controlling LLM Agent Collectives <span class="arrow">→</span></h4>
               <p>
                 Multi-agent LLM debate modelled as a networked dynamical system: network topology, verifier placement
                 and coordination dynamics, with pilots on GSM8K and AIME. Includes bounds for runaway agents and
@@ -123,7 +132,6 @@
             </div>
           </li>
         </ol>
-        <a class="more" href="https://github.com/soleimanarebi" target="_blank" rel="noopener">View code on GitHub <span class="arrow">→</span></a>
       </section>
 
       <section id="experience" class="section" aria-label="Experience">
@@ -133,7 +141,7 @@
             <span class="date">2026 — Present</span>
             <div>
               <h4>Independent Researcher · Multi-Agent AI</h4>
-              <p>Controllability and scalable oversight of LLM agent networks. Two manuscripts in preparation, with code and data on GitHub.</p>
+              <p>Controllability and scalable oversight of LLM agent networks. Two manuscripts in preparation.</p>
               <ul class="chips"><li>Python</li><li>asyncio</li><li>Anthropic SDK</li><li>Statistics</li></ul>
             </div>
           </li>
@@ -174,6 +182,7 @@
     </main>
   </div>
 
+  <script src="network.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

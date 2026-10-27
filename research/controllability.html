@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Controllability of LLM Agent Networks · Soleiman Arebi</title>
+  <meta name="description" content="Which agents to verify, and how many: a controllability study of LLM agent networks by Soleiman Arebi." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><text x='6' y='22' font-family='sans-serif' font-weight='700' font-size='15' fill='%235eead4'>SA</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
+  <main class="paper">
+    <a class="back" href="../index.html#research"><span class="arrow">←</span> Soleiman Arebi</a>
+
+    <header class="paper-hero">
+      <canvas data-network data-agents="60" aria-hidden="true"></canvas>
+      <div class="inner">
+        <span class="status">Manuscript in preparation · 2026</span>
+        <h1>Controllability of LLM Agent Networks: Which Agents to Verify, and How Many</h1>
+        <p class="byline">Soleiman Arebi · Independent researcher</p>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Key results">
+      <div class="stat"><b><em>38</em> / 39</b><span>feasible settings where betweenness needs the fewest (or equal-fewest) driver agents</span></div>
+      <div class="stat"><b><em>121</em> / 126</b><span>graphs where betweenness needs fewer drivers than eigenvector centrality</span></div>
+      <div class="stat"><b><em>3.75×</em></b><span>fewer driver agents with SDRE oversight that reads every agent but corrects few</span></div>
+      <div class="stat"><b><em>13–17</em> pts</b><span>lower final error than random placement, in a pilot with 30 Claude agents</span></div>
+    </section>
+
+    <section class="abstract" aria-labelledby="abs">
+      <h2 id="abs">Abstract</h2>
+      <p>
+        Groups of large language model (LLM) agents are wired, supervised and corrected by hand-built harnesses, and
+        verification is expensive. Which agents should receive a verifier’s correction, and how few are enough for the
+        whole group to reach the verified answer within the rounds a harness can afford? We study this as a
+        controllability problem for a scalar model of agent collectives, in which each agent holds a number such as the
+        log-odds of an answer, drifts on its own, and moves toward what it reads with bounded influence.
+      </p>
+      <p>
+        We carry over a performance-based method developed for complex dynamical networks: choose the minimum number of
+        driver agents that meets a desired settling time, ranking candidates by betweenness, closeness and eigenvector
+        centrality. All theoretical results assume a correct reference. For undirected graphs and linear influence, the
+        worst-case number of rounds to consensus follows exactly from the spectrum. This gives a lower bound on the number
+        of driver agents and an infeasibility condition for groups whose hubs listen too much, under which pinning a hub
+        can make the target unreachable. Under bounded influence, agents or clusters past an explicit threshold are beyond
+        the reach of their peers, and a conservative region of attraction sets the scale of recovery.
+      </p>
+      <p>
+        In simulations of random, small-world and scale-free groups of 20 to 160 agents with the parameters we tested,
+        betweenness needs the fewest or equal-fewest driver agents in 38 of the 39 feasible settings and fewer than
+        eigenvector centrality in 121 of 126 graphs where the two differ. Within the feasible settings, denser groups need
+        fewer drivers. State-dependent Riccati (SDRE) oversight that reads every agent but corrects few cuts the number of
+        driver agents by a median factor of 3.75 from moderate disagreement, at about three times the corrective energy.
+        We also treat open-loop steering and capture by compromised verifiers.
+      </p>
+      <p>
+        A pilot with 30 Claude Haiku 5.5 agents tests only numeric convergence and placement: a supplied correction spread
+        through the graph, and placing verifiers by centrality lowered the final error against random placement by 13 to
+        17 points on a 0 to 100 scale in paired runs. It does not test reasoning or verifier reliability.
+      </p>
+    </section>
+
+    <section aria-labelledby="res">
+      <h2 id="res">Results</h2>
+      <div class="figs">
+        <figure class="fig">
+          <img src="img/fig-llm.png" alt="Normalised error over 20 rounds on random, small-world and scale-free graphs for drivers placed by betweenness, eigenvector centrality or at random, with 3 or 6 drivers" loading="lazy" />
+          <figcaption><b>Verifier placement in the Claude pilot.</b> Normalised error ‖e(t)‖/‖e(0)‖ over 20 rounds on random, small-world and scale-free graphs. Placing k = 3 or 6 drivers by betweenness (blue) or eigenvector centrality (green) brings the group to the verified value faster than random placement (grey); with no drivers the error does not fall.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="img/fig-mda.png" alt="Minimum share of driver agents against group size for three graph families and three mean degrees, comparing centrality rankings with the theoretical bound" loading="lazy" />
+          <figcaption><b>How many agents to verify.</b> Minimum driver agents (% of the group) needed to meet the settling-time target, for groups of 20 to 160 agents, three graph families and mean degree 4, 8 and 16. Rankings by betweenness (BC), closeness (CC) and eigenvector centrality (EC) are compared with degree, random and spectral-greedy choices and the lower bound of Corollary 4a; × marks settings with no feasible driver set.</figcaption>
+        </figure>
+        <div class="figs figs-2">
+          <figure class="fig">
+            <img src="img/fig-region.png" alt="Share of runs that converge against initial bias scale, before and after rescaling by the threshold of Theorem 2" loading="lazy" />
+            <figcaption><b>Region of attraction.</b> Share of runs that recover from an initial bias of scale σ. Rescaled by the threshold z̄* of Theorem 2, the curves for all six graphs drop together near 1.</figcaption>
+          </figure>
+          <figure class="fig">
+            <img src="img/fig-capture.png" alt="Share of agents captured by compromised verifiers in the bounded model against the prediction of Theorem 3" loading="lazy" />
+            <figcaption><b>Capture by compromised verifiers.</b> Share of agents captured in the bounded-influence model (δ = 6) against the prediction of Theorem 3, across random, small-world and scale-free groups.</figcaption>
+          </figure>
+        </div>
+        <figure class="fig">
+          <img src="img/fig-energy.png" alt="Average control energy and condition number of the controllability Gramian against the number of driver agents out of 64" loading="lazy" />
+          <figcaption><b>The cost of steering with few drivers.</b> (a) Average energy to steer a 64-agent collective in T = 30 rounds falls by orders of magnitude as driver agents are added. (b) With few drivers the controllability Gramian is numerically singular, past the double-precision limit; a star graph stays uncontrollable until every agent is driven.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="request">
+      <p>Full text available on request.</p>
+      <a class="btn" href="mailto:soleiman.arebi@gmail.com?subject=Controllability%20of%20LLM%20Agent%20Networks">Request the manuscript</a>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden><img alt="" /></div>
+  <script src="../network.js"></script>
+  <script src="../app.js"></script>
+  <script src="paper.js"></script>
+</body>
+</html>

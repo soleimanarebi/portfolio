@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Controlling LLM Agent Collectives · Soleiman Arebi</title>
+  <meta name="description" content="Network topology, verifier placement and coordination dynamics in collectives of language-model agents, by Soleiman Arebi." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><text x='6' y='22' font-family='sans-serif' font-weight='700' font-size='15' fill='%235eead4'>SA</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
+  <main class="paper">
+    <a class="back" href="../index.html#research"><span class="arrow">←</span> Soleiman Arebi</a>
+
+    <header class="paper-hero">
+      <canvas data-network data-agents="64" aria-hidden="true"></canvas>
+      <div class="inner">
+        <span class="status">Manuscript in preparation · 2026</span>
+        <h1>Controlling LLM Agent Collectives: Network Topology, Verifier Placement, and Coordination Dynamics</h1>
+        <p class="byline">Soleiman Arebi · Independent researcher</p>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Key results">
+      <div class="stat"><b><em>0.94</em></b><span>Spearman correlation between the spectral prediction and the observed ranking of six topologies</span></div>
+      <div class="stat"><b><em>10%</em></b><span>median gap between Theorem 1 and the simulated minimum coupling, with 64 agents</span></div>
+      <div class="stat"><b><em>12</em> vs 28</b><span>links: a sparse scale-free network matched a fully connected one on accuracy</span></div>
+      <div class="stat"><b><em>~15%</em></b><span>cheaper per correct answer when the two highest-degree agents are verified</span></div>
+    </section>
+
+    <section class="abstract" aria-labelledby="abs">
+      <h2 id="abs">Abstract</h2>
+      <p>
+        Groups of language-model agents now debate, verify and divide work, yet how they are wired, supervised and
+        rewarded is mostly set by hand. We model an agent collective as a complex dynamical network: each agent’s answer
+        is a node state, messages are diffusive coupling through the communication graph, and verifiers are pinning
+        control inputs. Building on pinning control of nonlinear complex networks [Ghaffari &amp; Arebi, 2016], we derive
+        three results.
+      </p>
+      <p>
+        First, rounds to consensus are governed by the algebraic connectivity λ<sub>2</sub>, the best achievable speed by
+        the eigenratio λ<sub>N</sub>/λ<sub>2</sub>, and over-agreeable agents oscillate once their coupling exceeds
+        2/λ<sub>N</sub>. Second, a Lyapunov criterion gives the minimum coupling for convergence to the verified answer and
+        a lower bound on the number of verifiers, k &gt; αN/g. Third, a potential-based group reward for reinforcement
+        learning pays each round’s Lyapunov decrease toward the verified solution and charges an LQR-style cost for
+        communication.
+      </p>
+      <p>
+        In simulation with 64 agents, the spectral prediction ranks six topologies almost exactly as observed (Spearman
+        0.94), Theorem 1 matches the simulated minimum coupling to within a median 10%, and no group with fewer verifiers
+        than the bound converges. Four small pilots with groups of eight Claude Haiku 5.5 agents (one model, 30 to 60
+        problems per condition) give preliminary evidence consistent with both regimes of the theory. On GSM8K every agent
+        is right on its own, errors decay without control, and a persuasive adversary moves no one. On AIME competition
+        problems, where single agents are right 72 to 80% of the time, debate alone gains 10 to 17 points on every one of
+        five topologies, and the two graphs with the lowest algebraic connectivity, the star and the scale-free graph,
+        reach less of that gain after the first exchange (80% against 95%), in the direction the spectral analysis
+        predicts.
+      </p>
+      <p>
+        In a controlled pilot, verifying the two highest-degree agents made the group faster (4 points more accuracy after
+        the first exchange, 95% CI 0.1 to 7.6) and about 15% cheaper per correct answer, and a stubborn adversary at the
+        hub captured 0.2% of honest agents instead of 1.2%. The lift in final accuracy is small (2 to 4 points), because
+        debate alone already reaches 0.93, and at eight agents where the verifiers sit made no measurable difference.
+        Stated confidence is calibrated and separates agents that will end right from those that will end wrong from the
+        first round, which makes it a nearly free state estimate for confidence-weighted coupling. A sparse scale-free
+        network matched a fully connected one on accuracy with 12 links instead of 28, reading 28% fewer input tokens.
+        These pilots are preliminary; the larger experiments that would test the theory at scale are specified but not
+        yet run.
+      </p>
+    </section>
+
+    <section aria-labelledby="res">
+      <h2 id="res">Pilot results at a glance</h2>
+      <div class="fig bars" style="margin-bottom: 72px; padding: 28px">
+        <div class="bar-row">
+          <h3>Share of the debate gain reached after the first exchange (AIME)</h3>
+          <div class="bar"><span class="label">Other topologies</span><span class="track"><span class="fill" data-w="95"></span></span><span class="val">95%</span></div>
+          <div class="bar"><span class="label">Star and scale-free (lowest λ₂)</span><span class="track"><span class="fill muted" data-w="80"></span></span><span class="val">80%</span></div>
+        </div>
+        <div class="bar-row">
+          <h3>Honest agents captured by a stubborn adversary at the hub</h3>
+          <div class="bar"><span class="label">Without verifiers</span><span class="track"><span class="fill muted" data-w="100"></span></span><span class="val">1.2%</span></div>
+          <div class="bar"><span class="label">Two hub agents verified</span><span class="track"><span class="fill" data-w="16.7"></span></span><span class="val">0.2%</span></div>
+        </div>
+        <div class="bar-row">
+          <h3>Communication links for the same accuracy</h3>
+          <div class="bar"><span class="label">Fully connected</span><span class="track"><span class="fill muted" data-w="100"></span></span><span class="val">28</span></div>
+          <div class="bar"><span class="label">Sparse scale-free</span><span class="track"><span class="fill" data-w="42.9"></span></span><span class="val">12</span></div>
+        </div>
+        <div class="bar-row">
+          <h3>Input tokens read</h3>
+          <div class="bar"><span class="label">Fully connected</span><span class="track"><span class="fill muted" data-w="100"></span></span><span class="val">100%</span></div>
+          <div class="bar"><span class="label">Sparse scale-free</span><span class="track"><span class="fill" data-w="72"></span></span><span class="val">72%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="model">
+      <h2 id="model">The model</h2>
+      <div class="stats">
+        <div class="stat"><b>Node state</b><span>Each agent’s current answer.</span></div>
+        <div class="stat"><b>Coupling</b><span>Messages diffuse through the communication graph.</span></div>
+        <div class="stat"><b>Pinning</b><span>Verifiers act as control inputs toward the verified answer.</span></div>
+      </div>
+    </section>
+
+    <div class="request">
+      <p>Full text available on request.</p>
+      <a class="btn" href="mailto:soleiman.arebi@gmail.com?subject=Controlling%20LLM%20Agent%20Collectives">Request the manuscript</a>
+    </div>
+  </main>
+
+  <script src="../network.js"></script>
+  <script src="../app.js"></script>
+  <script src="paper.js"></script>
+</body>
+</html>
