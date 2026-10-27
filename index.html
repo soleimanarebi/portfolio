@@ -3,334 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Soleiman Arebi · Control, AI and Energy Systems</title>
-  <meta name="description" content="Soleiman Arebi, PhD, CEng MIMechE. Network control, oversight of multi-agent AI, machine learning and energy analysis." />
-  <meta name="theme-color" content="#0b2545" />
-  <meta property="og:title" content="Soleiman Arebi" />
-  <meta property="og:description" content="Control theorist working on oversight of multi-agent AI systems." />
-  <meta property="og:image" content="img/portrait.jpg" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230b2545'/><text x='5' y='22' font-family='monospace' font-size='16' fill='%2329d391'>&gt;_</text></svg>" />
+  <title>Soleiman Arebi · Developer</title>
+  <meta name="description" content="Soleiman Arebi: AI, machine learning, network control, quantum mechanics and energy analysers." />
+  <meta name="theme-color" content="#0d1117" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d1117'/><text x='5' y='22' font-family='monospace' font-size='16' fill='%2339d353'>&gt;_</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="topbar">
-    <div class="wrap">
-      <span class="mono">~/soleiman-arebi</span>
-      <span class="topbar-links">
-        <a href="https://scholar.google.com/citations?user=eqObDC4AAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
-        <a href="https://www.linkedin.com/in/soleiman-arebi-0ba898103" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/soleimanarebi" target="_blank" rel="noopener">GitHub</a>
-      </span>
-    </div>
-  </div>
+  <div class="window">
+    <header class="titlebar">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="title">soleiman@arebi: ~/portfolio</span>
+      <button class="theme" id="theme" aria-label="Toggle colour theme">◐</button>
+    </header>
 
-  <header class="masthead">
-    <div class="wrap masthead-inner">
-      <a class="brand" href="#top">
-        <span class="brand-mark mono">&gt;_</span>
-        <span>Soleiman Arebi</span>
-      </a>
-      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
-      <nav id="nav" class="nav">
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
-        <a href="#experience">Experience</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact" class="nav-cta">Contact</a>
+    <div class="ide">
+      <nav class="explorer" aria-label="Sections">
+        <div class="explorer-head">EXPLORER</div>
+        <div class="folder">▾ portfolio</div>
+        <ul id="files"></ul>
       </nav>
+
+      <main class="editor">
+        <div class="tabs" id="tabs" role="tablist"></div>
+        <div class="code" id="code" tabindex="0" aria-live="polite"></div>
+      </main>
     </div>
-  </header>
 
-  <main id="top">
-    <!-- hero: journal-cover style -->
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div class="hero-text">
-          <p class="kicker mono">// control · AI · ML · energy</p>
-          <h1>Steering networks of agents, machines and energy systems</h1>
-          <p class="lead">
-            I'm a control theorist working on oversight of multi-agent AI systems. My PhD built
-            pinning control and controllability methods for nonlinear complex networks. I now
-            apply them to teams of language-model agents, treating verifiers as control inputs
-            and the communication graph as the network.
-          </p>
-          <p class="creds">PhD · CEng MIMechE · Kingston upon Thames, UK</p>
-          <div class="hero-actions">
-            <a class="btn" href="#research">See research</a>
-            <a class="btn btn-ghost" href="#contact">Get in touch</a>
-          </div>
-        </div>
-        <figure class="hero-photo">
-          <img src="img/portrait.jpg" alt="Portrait of Soleiman Arebi" width="420" height="320" />
-        </figure>
-      </div>
-
-      <div class="wrap">
-        <dl class="metrics">
-          <div><dt>18</dt><dd>years in modelling, simulation and control</dd></div>
-          <div><dt>50,400</dt><dd>model calls in the LLM agent pilot</dd></div>
-          <div><dt>2 + 9</dt><dd>journal and conference papers</dd></div>
-          <div><dt>2</dt><dd>patents</dd></div>
-        </dl>
+    <section class="terminal" aria-label="Terminal">
+      <div class="term-head"><span>TERMINAL</span><span class="hint">type <b>help</b></span></div>
+      <div class="term-body" id="term">
+        <div id="term-out"></div>
+        <form id="term-form" class="prompt-line" autocomplete="off">
+          <label for="term-in" class="ps1">soleiman@arebi:~$</label>
+          <input id="term-in" spellcheck="false" aria-label="Terminal input" />
+        </form>
       </div>
     </section>
 
-    <!-- about -->
-    <section id="about" class="section">
-      <div class="wrap two-col">
-        <div>
-          <p class="kicker mono">01 · about</p>
-          <h2>About</h2>
-          <p>
-            I bring 18 years of modelling, simulation and data-driven control across research
-            and industry: robotics and mechatronics testbeds at K. N. Toosi University of
-            Technology, CFD for solar power plants, AI-driven HVAC control, and today thermal and
-            structural engineering of building façades in London.
-          </p>
-          <p>
-            My current research asks a practical question about AI oversight: in a network of
-            language-model agents, <em>which agents should a verifier correct, and how few are
-            enough</em> for the whole group to reach the right answer?
-          </p>
-        </div>
-        <aside class="card terminal" aria-label="Interactive terminal">
-          <div class="term-head"><i></i><i></i><i></i><span class="mono">soleiman@arebi: ~</span></div>
-          <div class="term-body mono" id="term">
-            <div id="term-out"></div>
-            <form id="term-form" class="prompt-line" autocomplete="off">
-              <label for="term-in" class="ps1">$</label>
-              <input id="term-in" spellcheck="false" aria-label="Terminal input" placeholder="type help" />
-            </form>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- research areas -->
-    <section id="research" class="section alt">
-      <div class="wrap">
-        <p class="kicker mono">02 · research</p>
-        <h2>Research areas</h2>
-
-        <div class="areas">
-          <article class="area">
-            <img src="img/fig-llm.png" alt="Error decay over 20 rounds for verifiers placed by betweenness, eigenvector centrality or at random, on random, small-world and scale-free graphs" loading="lazy" />
-            <div class="area-body">
-              <span class="tag mono">ai.ml</span>
-              <h3>AI and machine learning</h3>
-              <p>
-                <strong>Controllability of LLM agent networks.</strong> A pilot with 30 Claude
-                agents and 50,400 model calls. Placing verifiers by betweenness centrality beat
-                random placement by 13 to 17 points of final error (p = 0.001), and a fitted
-                linear consensus model predicted held-out graphs with correlation 0.92.
-              </p>
-              <p>
-                A second study models multi-agent LLM debate on GSM8K and AIME as a networked
-                dynamical system. Earlier: an AI/ML digital twin for data-driven HVAC control at
-                Leaftech, genetic algorithms and fuzzy modelling.
-              </p>
-              <a class="more" href="https://github.com/soleimanarebi/llm-agent-controllability" target="_blank" rel="noopener">Code and data →</a>
-            </div>
-          </article>
-
-          <article class="area">
-            <img src="img/formation-control.jpg" alt="Ground-air formation control test rig with quadrotors suspended in a frame" loading="lazy" />
-            <div class="area-body">
-              <span class="tag mono">network.control</span>
-              <h3>Network control</h3>
-              <p>
-                Pinning control, synchronization and controllability of nonlinear complex
-                networks: choosing driver nodes by network centrality and designing suboptimal
-                SDRE controllers. Published in <em>Nonlinear Dynamics</em> (2016).
-              </p>
-              <p>
-                Built testbeds for networked and nonlinear control: a ground–air formation
-                setup, a quadrotor hardware-in-the-loop rig, a servomotor synchronization
-                platform and a 7-DOF manipulator.
-              </p>
-              <a class="more" href="https://doi.org/10.1007/s11071-015-2383-8" target="_blank" rel="noopener">Read the paper →</a>
-            </div>
-          </article>
-
-          <article class="area">
-            <img src="img/solar-collector-1.jpg" alt="Prototype parabolic solar collector with photovoltaic panel and storage tank" loading="lazy" />
-            <div class="area-body">
-              <span class="tag mono">energy.analyser</span>
-              <h3>Energy analysis</h3>
-              <p>
-                Building energy assessment for heating, cooling and lighting; façade thermal
-                modelling with U-values, thermal bridges and condensation risk; wind engineering.
-              </p>
-              <p>
-                Led CFD for parabolic solar collectors at MAPNA's Yazd solar power plant, and
-                designed and patented a parabolic trough solar water heater (No. 61054).
-              </p>
-            </div>
-          </article>
-
-          <article class="area">
-            <img src="img/imu-array.jpg" alt="Array of accelerometers, gyros and magnetometers on a calibration fixture" loading="lazy" />
-            <div class="area-body">
-              <span class="tag mono">mechatronics</span>
-              <h3>Mechatronics and navigation</h3>
-              <p>
-                Gyro-free inertial navigation from arrays of MEMS accelerometers, with active and
-                passive calibration mechanisms (patent No. 85931).
-              </p>
-              <p>
-                Designed robots, mobile banking vehicles, automated cranes and more than 30 façade
-                systems, from concept to CNC production.
-              </p>
-            </div>
-          </article>
-
-          <article class="area area-wide">
-            <div class="area-body">
-              <span class="tag mono">quantum.mechanics</span>
-              <h3>Quantum mechanics</h3>
-              <p class="pending">Details coming soon.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- publications, journal-listing style -->
-    <section id="publications" class="section">
-      <div class="wrap">
-        <p class="kicker mono">03 · publications</p>
-        <h2>Selected publications</h2>
-
-        <ol class="pubs">
-          <li class="pub">
-            <span class="pub-type">Research article</span>
-            <h3><a href="https://doi.org/10.1007/s11071-015-2383-8" target="_blank" rel="noopener">Pinning control for synchronization of nonlinear complex dynamical networks with suboptimal SDRE controllers</a></h3>
-            <p class="pub-meta">A. Ghaffari, S. Arebi · <em>Nonlinear Dynamics</em> 83, 1003–1013 · 2016</p>
-          </li>
-          <li class="pub">
-            <span class="pub-type">Research article</span>
-            <h3>Pinning controllability of dynamical networks based on synchronized motion performance</h3>
-            <p class="pub-meta">A. Ghaffari, S. Arebi · <em>Modares Mechanical Engineering</em> 15(11), 75–83 · 2016 (in Persian)</p>
-          </li>
-          <li class="pub">
-            <span class="pub-type pre">Manuscript in preparation</span>
-            <h3><a href="https://github.com/soleimanarebi/llm-agent-controllability" target="_blank" rel="noopener">Controllability of LLM agent networks: which agents to verify, and how many</a></h3>
-            <p class="pub-meta">S. Arebi · 2026</p>
-          </li>
-          <li class="pub">
-            <span class="pub-type pre">Manuscript in preparation</span>
-            <h3>Controlling LLM agent collectives: network topology, verifier placement, and coordination dynamics</h3>
-            <p class="pub-meta">S. Arebi · 2026</p>
-          </li>
-        </ol>
-
-        <details class="more-pubs">
-          <summary>Conference papers and patents</summary>
-          <ul>
-            <li>Multilayer design technique in the metal façade. Facade Tectonics World Congress, Los Angeles, 2018.</li>
-            <li>Pinning controllability analysis of dynamical networks based on node centrality. ISME 2016, Yazd.</li>
-            <li>Pinning consensus for nonlinearly diffusively coupled multi-agent systems. ICEE 2016, Shiraz.</li>
-            <li>Pinning controllability of dynamical networks based on synchronized motion performance and node centrality. CSICC 2016, Tehran.</li>
-            <li>Pinning control of nonlinearly diffusively coupled multi-agent systems. 2016.</li>
-            <li>AHS fuzzy modelling. TTC14, 2015.</li>
-            <li>Thermal modelling of parabolic solar water heaters with a fully mixed storage tank model. Asian Conference on Sustainability, Energy and the Environment, Osaka, 2011.</li>
-            <li>Designing parabolic solar water heater specifications using a genetic algorithm. ISES Solar World Congress, Kassel, 2011.</li>
-            <li>Parabolic solar collector dynamical model with tracking error effects and GA parameter identification. ISME 2010, Tehran.</li>
-            <li>Simulation of turbulent wind flow over an array of parabolic collectors. ISME 2006, Esfahan.</li>
-            <li><strong>Patents:</strong> solar parabolic trough collector water heater (No. 61054); MEMS active calibrator mechanism (No. 85931).</li>
-          </ul>
-        </details>
-        <p class="reviewer">Reviewer for <em>IEEE Transactions on Neural Networks and Learning Systems</em>, <em>Physics Letters A</em>, and other Elsevier and Springer journals.</p>
-      </div>
-    </section>
-
-    <!-- experience -->
-    <section id="experience" class="section alt">
-      <div class="wrap">
-        <p class="kicker mono">04 · experience</p>
-        <h2>Experience and education</h2>
-        <div class="timeline-grid">
-          <ol class="timeline">
-            <li><span class="when mono">2022 –</span><div><h3>Mechanical &amp; Façade Engineer</h3><p>Glass and Façade Solutions Ltd, UK. FEM and CFD thermal and structural modelling with scripted analysis pipelines.</p></div></li>
-            <li><span class="when mono">2022 –</span><div><h3>Board Member</h3><p>IMechE Construction and Building Services Division.</p></div></li>
-            <li><span class="when mono">2021 – 22</span><div><h3>Engineer</h3><p>Leaftech, Germany. Data-driven HVAC control with an AI/ML digital twin; wind engineering for sensor placement.</p></div></li>
-            <li><span class="when mono">2006 – 16</span><div><h3>Researcher</h3><p>Mechatronics Research Group and Centre of Excellence in Robotics and Control, K. N. Toosi University of Technology. Lecturer and TA for MSc and PhD control courses.</p></div></li>
-            <li><span class="when mono">2007 – 21</span><div><h3>R&amp;D and engineering</h3><p>Cabiran, Arvin Uzman, Kianit; team lead for solar-collector CFD at MAPNA.</p></div></li>
-          </ol>
-          <div class="card edu">
-            <h3>Education</h3>
-            <ul>
-              <li><strong>PhD, Mechanical Engineering</strong><br />Control of dynamical networks · K. N. Toosi University of Technology · 2016</li>
-              <li><strong>MSc, Façade Engineering</strong><br />University of the West of England · 2022</li>
-              <li><strong>MSc, Mechanical Engineering</strong><br />K. N. Toosi University of Technology · 2009</li>
-              <li><strong>BSc, Mechanical Engineering</strong><br />Shiraz University · 2005</li>
-            </ul>
-            <h3>Skills</h3>
-            <p class="chips">
-              <span>Python</span><span>NumPy / SciPy</span><span>NetworkX</span><span>Anthropic SDK</span>
-              <span>MATLAB / Simulink</span><span>SDRE · LQR · Lyapunov</span><span>ANSYS Fluent</span>
-              <span>STAR-CCM+</span><span>Abaqus</span><span>SolidWorks</span><span>LaTeX</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- gallery -->
-    <section id="gallery" class="section">
-      <div class="wrap">
-        <p class="kicker mono">05 · gallery</p>
-        <h2>Built and tested</h2>
-        <div class="gallery" id="gallery-grid">
-          <figure><img src="img/quadrotor-hil.jpg" alt="" loading="lazy" /><figcaption>Quadrotor hardware-in-the-loop flight testbed</figcaption></figure>
-          <figure><img src="img/agr-ins.jpg" alt="" loading="lazy" /><figcaption>Active gravity remedial inertial navigation sensor</figcaption></figure>
-          <figure><img src="img/gimbal-calibrator.jpg" alt="" loading="lazy" /><figcaption>Gimbal-mounted crank-slider calibration mechanism</figcaption></figure>
-          <figure><img src="img/servo-actuator.jpg" alt="" loading="lazy" /><figcaption>Servomotor synchronization platform</figcaption></figure>
-          <figure><img src="img/rover-1.jpg" alt="" loading="lazy" /><figcaption>Hyper-stable rock-roving robot</figcaption></figure>
-          <figure><img src="img/solar-collector-2.jpg" alt="" loading="lazy" /><figcaption>Parabolic solar collector</figcaption></figure>
-          <figure><img src="img/crane-2.jpg" alt="" loading="lazy" /><figcaption>Automated crane, 2020</figcaption></figure>
-          <figure><img src="img/mobile-atm.jpg" alt="" loading="lazy" /><figcaption>Accessible mobile ATM, 2016</figcaption></figure>
-          <figure><img src="img/farmanieh-freeform.jpg" alt="" loading="lazy" /><figcaption>Farmanieh Centre free-form roof and cladding, 2018</figcaption></figure>
-          <figure><img src="img/pasdaran-facade.jpg" alt="" loading="lazy" /><figcaption>Pasdaran Centre metal façade, 2020</figcaption></figure>
-          <figure><img src="img/fig-mda.png" alt="" loading="lazy" /><figcaption>Minimum driver agents by centrality, network size and density</figcaption></figure>
-          <figure><img src="img/mobile-atm-vehicle.jpg" alt="" loading="lazy" /><figcaption>Mobile ATM vehicle, 2018</figcaption></figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- contact -->
-    <section id="contact" class="section contact">
-      <div class="wrap">
-        <p class="kicker mono">06 · contact</p>
-        <h2>Get in touch</h2>
-        <p class="lead">Open to research collaborations on AI oversight, network control and energy systems.</p>
-        <div class="contact-links">
-          <a class="btn" href="mailto:soleiman.arebi@gmail.com">soleiman.arebi@gmail.com</a>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/soleiman-arebi-0ba898103" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=eqObDC4AAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
-          <a class="btn btn-ghost" href="https://github.com/soleimanarebi" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap">
-      <span>© <span id="year"></span> Soleiman Arebi</span>
-      <span class="mono">CEng MIMechE · MSFE · MCIBSE · CWCT</span>
-    </div>
-  </footer>
-
-  <div class="lightbox" id="lightbox" hidden>
-    <button class="lightbox-close" aria-label="Close">×</button>
-    <img alt="" />
-    <p class="lightbox-cap"></p>
+    <footer class="statusbar">
+      <span>⎇ main</span>
+      <span id="status-file">about.md</span>
+      <span class="right">UTF-8 · <span id="status-lang">Markdown</span></span>
+    </footer>
   </div>
 
+  <script src="content.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

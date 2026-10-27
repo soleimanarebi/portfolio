@@ -1,10 +1,8 @@
 # Portfolio
 
-Personal site for Soleiman Arebi: a journal-style layout with research areas, publications, experience, a photo gallery and a small interactive terminal.
+Personal site for Soleiman Arebi, styled as a code editor with a working terminal.
 
-- `index.html`: all page content
-- `style.css`: layout and theme (navy and green, light and dark)
-- `app.js`: mobile menu, gallery lightbox and the terminal commands
-- `img/`: photos from the CV and figures from `llm-agent-controllability`
+- `index.html`, `style.css`, `app.js`: the editor shell and terminal
+- `content.js`: all text. Each entry in `FILES` is one tab. Lines marked `‹todo|…›` are placeholders to fill from the CV.
 
-No build step. Netlify publishes the repo root (`netlify.toml`) on every push to `main`.
+No build step. Netlify publishes the repo root (`netlify.toml`).
