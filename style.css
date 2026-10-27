@@ -133,3 +133,4 @@ img { display: block; max-width: 100%; }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+.section > .creds { color: var(--dim); font-size: .92rem; }
