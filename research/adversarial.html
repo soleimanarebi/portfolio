@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adversarial Controllability of LLM Agent Systems · Soleiman Arebi</title>
+  <meta name="description" content="Which inputs can steer an LLM agent into unsafe states: a control-theoretic study of prompt injection by Soleiman Arebi." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><text x='6' y='22' font-family='sans-serif' font-weight='700' font-size='15' fill='%235eead4'>SA</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <canvas class="bg-net" data-network data-bg data-interactive aria-hidden="true"></canvas>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
+  <main class="paper">
+    <a class="back" href="../index.html#research"><span class="arrow">←</span> Soleiman Arebi</a>
+
+    <header class="paper-hero">
+      <canvas data-network data-agents="56" aria-hidden="true"></canvas>
+      <div class="inner">
+        <span class="status">Manuscript in preparation · 2026</span>
+        <h1>Adversarial Controllability of LLM Agent Systems: Which Inputs Can Steer an Agent into Unsafe States?</h1>
+        <p class="byline">Soleiman Arebi · Independent researcher</p>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Key results">
+      <div class="stat"><b><em>18%</em> vs 0.6%</b><span>of a scale-free network steerable after compromising its best-connected agent, against a random one</span></div>
+      <div class="stat"><b><em>40%</em> → 4%</b><span>of undefended episodes steered by a disguised injection, from Haiku 4.5 to Haiku 5.5</span></div>
+      <div class="stat"><b><em>2</em> / 10,000</b><span>defended episodes steered with an instruction-hierarchy prompt and spotlighting</span></div>
+      <div class="stat"><b><em>20,000</em></b><span>episodes on four Claude models with a harmless injected goal, for 10.47 US dollars</span></div>
+    </section>
+
+    <section class="abstract" aria-labelledby="abs">
+      <h2 id="abs">Abstract</h2>
+      <p>
+        An LLM agent reads text written by people it does not answer to: documents a user forwards, tool outputs, web
+        pages and messages from other agents. Each of these is an input channel through which an attacker can try to
+        steer the agent, and prompt injection is the practical form of that attack. We ask the control-theoretic
+        question behind it: which input channels can steer an agent, or a network of agents, into an unsafe state, and
+        at what cost?
+      </p>
+      <p>
+        In a linear model of an agent’s latent state driven by attacker inputs on a set of channels, we prove five
+        results. (i) The unsafe set is reachable from a set of channels if and only if the harm direction is not
+        orthogonal to their reachable subspace, and the least attack energy that reaches it is m²/σ<sub>S</sub>, where
+        m is the safety margin and σ<sub>S</sub> = h<sup>⊤</sup>W<sub>S</sub>h is the steering power of the channels,
+        read off an attack Gramian W<sub>S</sub>. Steering powers add across channels. (ii) For a stochastic agent and
+        an attacker who writes content before the agent reads it, the probability of an unsafe outcome is exactly
+        Φ((√(Eσ<sub>S</sub>) − m)/s): if attack energy grows in proportion to injected tokens, the probit of attack
+        success is linear in the square root of the injection length. (iii) An attack can reach the unsafe set with no
+        trace on a monitor if and only if the reach vector has a component in the kernel of the attack-to-monitor map.
+      </p>
+      <p>
+        (iv) Defences act as gain reductions and edge cuts. Hardening one channel against an attacker who holds several
+        raises the energy needed by at most σ<sub>S</sub>/(σ<sub>S</sub> − σ<sub>k</sub>), and the best allocation of a
+        hardening budget is a fractional knapsack. (v) In a network of agents, a target agent is generically reachable
+        from a compromised set exactly when a communication path joins them. The minimum number of compromised agents
+        that gives full control is set by a maximum matching for memoryless agents and by the number of source
+        components for agents with memory, and steering power decays at least geometrically with the number of hops.
+      </p>
+      <p>
+        A seeded simulation confirms each result to numerical or Monte Carlo accuracy. In it, compromising the single
+        best-connected agent of a scale-free network makes 18% of the population steerable within a fixed energy
+        budget, against 0.6% for a random agent. We also run a low-cost experiment with four Claude models and a
+        harmless injected goal (20,000 episodes, 10.47 US dollars). Steerability fell sharply across model
+        generations: a disguised injection steered Haiku 4.5 in 40% of undefended episodes and Haiku 5.5 in 4%. An
+        instruction-hierarchy defence cut success to 2 of 10,000 defended episodes. Against the square-root dose law,
+        success peaked at one or two injected sentences and fell with length, because longer injections were noticed
+        more often.
+      </p>
+    </section>
+
+    <section aria-labelledby="res">
+      <h2 id="res">Results</h2>
+      <div class="figs">
+        <figure class="fig">
+          <img src="img/fig-llm-inject.png" alt="Probability of the injected tool call against injected tokens for Haiku 5.5, Sonnet 5.5, Haiku 4.5 and Sonnet 4.6, for overt and disguised injections without a defence" loading="lazy" />
+          <figcaption><b>Prompt injection on four Claude models.</b> Rate at which the agent made the injected (harmless) tool call against injection length, channels pooled, for (a) overt and (b) disguised injections with no defence. Success peaks at one or two sentences and falls with length, and the current models are far harder to steer than the previous generation. With the defence, every rate is below 0.2%.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="img/fig-dose.png" alt="Probability of an unsafe outcome against attack energy for document, tool, web, peer and document plus tool channels; and its probit against the square root of energy" loading="lazy" />
+          <figcaption><b>The dose law in simulation.</b> (a) Probability of an unsafe outcome against attack energy for each input channel: theory (lines) and Monte Carlo (dots) agree to within 0.003. (b) The probit of success is linear in √E, with slope set by each channel’s steering power.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="img/fig-stealth.png" alt="Fraction of steering power invisible to a monitor against monitored dimensions; and minimum attack energy as the document channel is hardened" loading="lazy" />
+          <figcaption><b>Monitors and defences.</b> (a) Share of steering power a monitor cannot see, against the number of latent dimensions it reads: 91% with one, 0.5% with ten. (b) Hardening the strongest channel raises the attack energy a hundredfold against an attacker on that channel alone, but less than threefold against one who holds all four channels: the weakest-link cap.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="img/fig-network.png" alt="Fraction of agents to compromise for full control against mean degree; steering power against hop distance; and steerable fraction when compromising hubs or random agents" loading="lazy" />
+          <figcaption><b>Networks of agents.</b> (a) Fraction of agents an attacker must compromise for full control, for random (ER) and scale-free (SF) networks with and without memory. (b) Steering power falls by about eight times per hop from the compromised agent. (c) Compromising hubs makes far more of the network steerable than compromising random agents.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="dep">
+      <h2 id="dep">What it means for deployment</h2>
+      <div class="stats">
+        <div class="stat"><b>Rank channels</b><span>by steering power, not by how untrusted they feel.</span></div>
+        <div class="stat"><b>Defend broadly</b><span>against attackers who hold several channels at once.</span></div>
+        <div class="stat"><b>Limit memory</b><span>of untrusted content across long tasks.</span></div>
+        <div class="stat"><b>Protect hubs</b><span>and keep privileged agents far from entry points.</span></div>
+      </div>
+    </section>
+
+    <div class="request">
+      <p>Full text available on request.</p>
+      <a class="btn" href="mailto:soleiman.arebi@gmail.com?subject=Adversarial%20Controllability%20of%20LLM%20Agent%20Systems">Request the manuscript</a>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden><img alt="" /></div>
+  <script src="../network.js"></script>
+  <script src="../app.js"></script>
+  <script src="paper.js"></script>
+</body>
+</html>
