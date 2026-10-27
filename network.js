@@ -1,6 +1,8 @@
 // Animated agent network: agents (dots) hold a value shown as colour, talk along
 // edges (moving sparks) and drift toward consensus; verifiers (ringed) are pinned
 // to the verified answer and pull the group toward it. Restarts every cycle.
+// data-bg: fixed full-page background sized to the viewport.
+// data-interactive: the cursor acts as a verifier, pulling nearby agents to it.
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -48,32 +50,59 @@
 
   function start(canvas) {
     const ctx = canvas.getContext("2d");
-    const n = +canvas.dataset.agents || 46;
-    let w, h, dpr, net, sparks, t0, raf;
+    const bg = "bg" in canvas.dataset;
+    const interactive = "interactive" in canvas.dataset;
+    const cycle = bg ? 20 : 14;
+    let n, w = 0, h, dpr, net, sparks, t0, raf;
+    const ptr = { x: -1e4, y: -1e4, on: false };
 
     const resize = () => {
       dpr = Math.min(2, window.devicePixelRatio || 1);
       const r = canvas.getBoundingClientRect();
+      const widthChanged = Math.abs(r.width - w) > 1;
       w = r.width; h = r.height;
       canvas.width = w * dpr; canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      reset();
+      n = bg ? Math.max(22, Math.min(72, Math.round((w * h) / 20000))) : (+canvas.dataset.agents || 46);
+      // mobile toolbars change the height while scrolling; only rebuild when the width changes
+      if (widthChanged || !net) reset();
     };
     const reset = () => { net = build(n, w, h); sparks = []; t0 = performance.now(); };
+
+    if (interactive) {
+      window.addEventListener("pointermove", (e) => {
+        const r = canvas.getBoundingClientRect();
+        ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top;
+        ptr.on = ptr.x >= 0 && ptr.y >= 0 && ptr.x <= r.width && ptr.y <= r.height;
+      }, { passive: true });
+      document.addEventListener("pointerleave", () => { ptr.on = false; });
+    }
 
     function step(now) {
       const { nodes, edges, nbr } = net;
       const age = (now - t0) / 1000;
-      if (age > 14) reset();
+      if (age > cycle) reset();
 
       // consensus with pinning: dv = c * sum(v_j - v_i) + pin * (1 - v_i)
       const c = 0.0035, pin = 0.02;
       const dv = nodes.map((m, i) => m.pin ? 0 : c * nbr[i].reduce((s, j) => s + nodes[j].v - m.v, 0));
       nodes.forEach((m, i) => {
         if (m.pin) m.v += pin * (1 - m.v); else m.v += dv[i];
+        if (ptr.on) {
+          // the cursor is a verifier: nearby agents are pulled to it and toward the answer
+          const dx = ptr.x - m.x, dy = ptr.y - m.y, d = Math.hypot(dx, dy);
+          if (d < 160) {
+            m.v += 0.02 * (1 - m.v);
+            m.vx += dx / d * 0.012; m.vy += dy / d * 0.012;
+          }
+        }
+        m.vx *= 0.995; m.vy *= 0.995;
+        const sp = Math.hypot(m.vx, m.vy);
+        if (sp < 0.03) { m.vx += (Math.random() - 0.5) * 0.02; m.vy += (Math.random() - 0.5) * 0.02; }
+        if (sp > 0.8) { m.vx *= 0.8 / sp; m.vy *= 0.8 / sp; }
         m.x += m.vx; m.y += m.vy;
-        if (m.x < 8 || m.x > w - 8) m.vx *= -1;
-        if (m.y < 8 || m.y > h - 8) m.vy *= -1;
+        if (m.x < 8 || m.x > w - 8) { m.vx *= -1; m.x = Math.max(8, Math.min(w - 8, m.x)); }
+        if (m.y < 8 || m.y > h - 8) { m.vy *= -1; m.y = Math.max(8, Math.min(h - 8, m.y)); }
       });
 
       // spawn messages along random edges
@@ -99,6 +128,17 @@
         ctx.fillStyle = colour(a.v, 0.9 * Math.sin(Math.PI * s.p));
         ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 7); ctx.fill();
       });
+      if (ptr.on) {
+        nodes.forEach((m) => {
+          const d = Math.hypot(ptr.x - m.x, ptr.y - m.y);
+          if (d > 160) return;
+          ctx.strokeStyle = `rgba(226,232,240,${0.35 * (1 - d / 160)})`;
+          ctx.beginPath(); ctx.moveTo(ptr.x, ptr.y); ctx.lineTo(m.x, m.y); ctx.stroke();
+        });
+        const pr = 6 + 2 * Math.sin(now / 250);
+        ctx.strokeStyle = "rgba(94,234,212,.9)"; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.arc(ptr.x, ptr.y, pr, 0, 7); ctx.stroke(); ctx.lineWidth = 1;
+      }
       nodes.forEach((m) => {
         const r = 2.6 + Math.sqrt(m.deg) * 1.3;
         const glow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, r * 4);

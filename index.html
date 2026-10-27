@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <canvas class="bg-net" data-network data-bg data-interactive aria-hidden="true"></canvas>
   <div class="spotlight" id="spotlight" aria-hidden="true"></div>
   <a class="skip" href="#content">Skip to content</a>
 
@@ -53,7 +54,7 @@
 
     <main id="content" class="main">
       <figure class="hero-net">
-        <canvas data-network data-agents="52" aria-label="Animation of a network of AI agents reaching agreement as a few verifier agents pull them toward the verified answer" role="img"></canvas>
+        <canvas data-network data-interactive data-agents="52" aria-label="Animation of a network of AI agents reaching agreement as a few verifier agents pull them toward the verified answer" role="img"></canvas>
         <figcaption>
           <span><i class="dot dot-agent"></i>agent</span>
           <span><i class="dot dot-verifier"></i>verifier</span>
@@ -84,7 +85,7 @@
         <ol class="list">
           <li class="item item-img">
             <a class="cover" href="research/controllability.html" aria-label="Controllability of LLM agent networks"></a>
-            <img src="research/img/fig-llm.png" alt="Error decay over rounds for verifiers placed by betweenness, eigenvector centrality or at random" loading="lazy" />
+            <canvas class="thumb-net" data-network data-agents="30" aria-hidden="true"></canvas>
             <div>
               <h4>Controllability of LLM Agent Networks <span class="arrow">→</span></h4>
               <p>
@@ -108,9 +109,9 @@
               <ul class="chips"><li>Multi-agent LLMs</li><li>Consensus dynamics</li><li>Bootstrap · Wilcoxon</li></ul>
             </div>
           </li>
-          <li class="item">
+          <li class="item item-img">
             <a class="cover" href="https://doi.org/10.1007/s11071-015-2383-8" target="_blank" rel="noopener" aria-label="Pinning control paper in Nonlinear Dynamics"></a>
-            <span class="date">2010 — 2016</span>
+            <canvas class="thumb-net" data-network data-agents="20" aria-hidden="true"></canvas>
             <div>
               <h4>Pinning Control of Nonlinear Complex Networks <span class="arrow">↗</span></h4>
               <p>
@@ -120,8 +121,8 @@
               <ul class="chips"><li>Nonlinear control</li><li>Lyapunov</li><li>SDRE</li><li>MATLAB</li></ul>
             </div>
           </li>
-          <li class="item">
-            <span class="date">2006 — 2016</span>
+          <li class="item item-img">
+            <canvas class="thumb-net" data-network data-agents="10" aria-hidden="true"></canvas>
             <div>
               <h4>Networked Control Testbeds</h4>
               <p>

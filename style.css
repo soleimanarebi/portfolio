@@ -212,3 +212,8 @@ img { display: block; max-width: 100%; }
   .bar .label { grid-column: 1 / -1; }
   .item-img .thumb-net { max-width: 220px; order: 2; }
 }
+
+/* full-page agent network behind everything */
+.bg-net { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; opacity: .2; pointer-events: none; }
+.layout, .paper { position: relative; z-index: 1; }
+@media (max-width: 640px) { .bg-net { opacity: .15; } }
